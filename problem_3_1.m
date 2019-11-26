@@ -15,7 +15,10 @@ H_jw = fft(h_n, N_SAMP);
 
 H_jw_inv = 1 ./ H_jw;
 
-deconv = ifft(Y_jw .* H_jw_inv);
+% Previously we tried first doing IFFT of H_jw_inv (to get h_n_inv) and 
+% convolving that with y_n, but that didn't work. So instead we multiply
+% in the fourier domain and THEN do the IFFT. That works correctly.
+deconv = ifft(Y_jw .* H_jw_inv); 
 
 figure(1)
 plot(x_n, 'Marker', 'o', 'LineStyle', 'none');
