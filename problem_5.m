@@ -24,14 +24,15 @@ Y_jw = fft(y_n, N_SAMP);
 
 H_jw = fft(h_n, N_SAMP);
 
-%replace H_jw_inv with Winner filter!
-eigen = linspace(0,1000,20); 
-noise_n = 0.01*randn(N_SAMP,1);
+% Replace H_jw_inv with Wiener filter!
+eigen = linspace(0, 1000, 20); 
+noise_n = 0.01 * randn(N_SAMP, 1);
 noise_jw = fft(noise_n);
 Y_jw_noise = Y_jw + noise_jw;
-% try multiple values of eigen
-for i = 1:length(eigen)
-    H_w_jw = conj(H_jw) ./ ((abs(H_jw).^2) + eigen(i));
+
+% Try multiple values of eigen
+for i = 1 : length(eigen)
+    H_w_jw = conj(H_jw) ./ ((abs(H_jw) .^ 2) + eigen(i));
     X_jw = Y_jw_noise .* H_w_jw;
     x_d2 = ifft(X_jw,N_SAMP);
     figure(i)
