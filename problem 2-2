@@ -1,0 +1,7 @@
+syms w
+
+N = 11;
+
+H = (1/N) * ( 1 - exp(-i*w*N)) / (1 - exp(-i * w));
+
+fplot(abs(H));
