@@ -10,7 +10,8 @@ clc
 
 load('x4fun.mat')
 
-N_SAMP = 4096;
+
+N_SAMP = 1024;
 N = 11;
 
 w = linspace(0, 2 * pi * (1 - 1 / N_SAMP), N_SAMP);
