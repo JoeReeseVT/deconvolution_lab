@@ -10,7 +10,6 @@ clc
 
 load('x4fun.mat')
 
-
 N_SAMP = 1024;
 N = 11;
 
@@ -28,19 +27,19 @@ Y_jw = fft(y_n, N_SAMP);
 H_jw = fft(h_n, N_SAMP);
 
 % Replace H_jw_inv with Wiener filter!
-eigen = linspace(0, 200, 6); 
+eigen = linspace(0, 50, 6); 
 noise_n = 0.01 * randn(N_SAMP, 1);
 noise_jw = fft(noise_n);
 Y_jw_noise = Y_jw + noise_jw;
+M = 2;
 
 % Try multiple values of eigen
 for j = 1 : length(eigen)
-    G_w_jw = abs((1-exp(1i.*w)).^2).^2;
-    
-    H_w_jw = conj(H_jw) ./ ((abs(H_jw).^ 2) + (eigen(j)*G_w_jw));
+    G_w_jw = abs((1-exp(1i.*w)).^M);
+    H_w_jw = conj(H_jw) ./ ((abs(H_jw).^2) + (eigen(j)*(abs(G_w_jw)).^2));
     X_jw = Y_jw_noise .* H_w_jw;
     x_d2 = ifft(X_jw,N_SAMP);
     figure(j)
     plot(w,x_d2);
-    display(eigen(j)); 
+    title(['\lambda = ', num2str(eigen(j))])
 end
