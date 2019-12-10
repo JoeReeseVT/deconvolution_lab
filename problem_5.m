@@ -27,7 +27,7 @@ Y_jw = fft(y_n, N_SAMP);
 H_jw = fft(h_n, N_SAMP);
 
 % Replace H_jw_inv with Wiener filter!
-eigen = linspace(0, 20, 6); 
+eigen = linspace(0, 200, 6); 
 noise_n = 0.01 * randn(N_SAMP, 1);
 noise_jw = fft(noise_n);
 Y_jw_noise = Y_jw + noise_jw;
